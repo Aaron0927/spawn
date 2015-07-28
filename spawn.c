@@ -22,7 +22,6 @@ void spawn()
     }
 }
 
-
 int main()
 {
     spawn();
