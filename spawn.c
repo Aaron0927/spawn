@@ -34,17 +34,18 @@ void spawn(const Config conf)
         printf("path: %s\n", confPath);
         FILE *stream = fopen(confPath, "w");
         assert(stream);
-        char content[1024] = {0};
-        strcat(content, "kernel = \"mini-os.gz\"\r\n");
+        char content[1024];
+        strcat(content, "kernel = \"mini-os.gz\"\n");
         strcat(content, "name = \"");
         strcat(content, conf.name);
-        strcat(content, "\"\r\nmemory = ");
+        strcat(content, "\"\nmemory = ");
         strcat(content, conf.mem);
-        strcat(content, "\r\non_crash = \"destroy\"\r\n");
+        strcat(content, "\non_crash = \"destroy\"\n");
         printf("%s\n", content); 
-        assert(fwrite(content, sizeof(content), 1, stream));
+        assert(fwrite(content, strlen(content), 1, stream));  // 这里要使用strlen,不能使用sizeof
         fclose(stream);
-        
+        //system("ls -l");
+	
     } else if (pid < 0) {
         perror("fork");
     } else {
